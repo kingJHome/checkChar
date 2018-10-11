@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct charStack{
@@ -12,7 +13,7 @@ int theStringValid(charStack *cs,char *content);
 int main(int argc,char *argv[]){
 	char *content = NULL;
 
-	readFileGetCotent("testChar.txt", &content);
+	readFileGetContent("testChar.txt", &content);
 	if( content ){
 		charStack curSt = {NULL,NULL,0};
 		//判断字符序列的正确性
@@ -65,12 +66,13 @@ int theStringValid(charStack *cs,char *content){
 				--cs->top;
 			}else if( content[pos]=='(' || content[pos]=='[' ){
 				*cs->top = content[pos];
+				++cs->top;
 			}
 
 			pos++;
 		}
 
-		if( cs->base==cs->top ){
+		if( cs->base==cs->top && pos==clen ){
 			result = 1;
 		}
 	}
